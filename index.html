@@ -4,6 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>胖肉多的種植雜記</title>
+    <!-- SEO 與 社群分享標籤 -->
+    <meta name="description" content="記錄每一株植物的生命故事，打造屬於自己的綠色日常。">
+    <meta property="og:title" content="胖肉多的種植雜記">
+    <meta property="og:description" content="記錄每一株植物的生命故事，打造屬於自己的綠色日常。">
+    <meta property="og:image" content="images/banner.jpg">
+    
+    <!-- 樣式表連結 (請確保 css 資料夾內有 style.css) -->
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
@@ -20,11 +27,11 @@
                 <a href="Journal.html">種植雜記</a>
                 <a href="Knowledge.html">植栽知識庫</a>
                 <a href="Shop.html">資材選物店</a>
-                <a href="BrandStory.html" >品牌故事</a>
-                <a href="ContactUs.html" >聯絡我們</a>
+                <a href="BrandStory.html">品牌故事</a>
+                <a href="ContactUs.html">聯絡我們</a>
             </nav>
             <div class="nav-icons">
-                <a href="#" class="search-btn">🔍</a>
+                <a href="#" class="search-btn" title="搜尋">🔍</a>
                 <a href="cart.html" class="cart-btn" id="navCartCount">🛒 (0)</a>
             </div>
         </div>
@@ -140,13 +147,12 @@
                         <h4>《走訪彰化田尾玫瑰園：專業花農沒告訴你的修剪時間點》</h4>
                     </article>
                 </div>
-                <!-- 新增：看更多文章快速連結 -->
                 <div class="article-more">
                     <a href="Journal.html" class="btn-more">看更多文章 ➔</a>
                 </div>
             </section>
 
-            <!-- 第六屏：自動偵測並將 carousel 資料夾內圖片納入輪播 -->
+            <!-- 第六屏：輪播照片專區 -->
             <section class="carousel-section">
                 <h3 class="section-title">花園日常剪影</h3>
                 <div class="carousel-container">
@@ -179,38 +185,39 @@
         </div>
     </footer>
 
-    <!-- 輪播腳本：可手動新增/修改播放檔案清單 -->
+    <!-- 輪播腳本 -->
     <script>
         document.addEventListener("DOMContentLoaded", function () {
             const track = document.getElementById("carouselTrack");
+            if (!track) return;
             
-            // 1. 手動修改區：請在此陣列中新增、刪除或修改檔名
+            // 輪播圖片清單 (請確保檔案名稱大小寫與 GitHub Repository 內的檔案名稱完全一致)
             const images = [
                 "slide01.jpg",
                 "slide02.jpg",
                 "slide03.jpg",
-                "slide04.jpg" // 已為您新增第四個檔案
+                "slide04.jpg"
             ];
             
-            // 2. 動態將陣列中的所有圖片渲染至頁面中
+            // 動態渲染圖片
             images.forEach(filename => {
                 const img = document.createElement("img");
                 img.src = `carousel/${filename}`;
                 img.alt = "花園剪影圖片";
-                img.onerror = function() { this.style.display = 'none'; }; // 檔案不存在時自動隱藏
+                img.onerror = function() { 
+                    this.style.display = 'none'; // 若圖片載入失敗則隱藏，避免破圖
+                }; 
                 track.appendChild(img);
             });
 
-            // 3. 自動平滑輪播機制
+            // 自動平滑輪播
             setInterval(() => {
-                // 若已滾動到最右側，則滑回第一張
                 if (track.scrollWidth - track.clientWidth <= track.scrollLeft + 5) {
                     track.scrollTo({ left: 0, behavior: 'smooth' });
                 } else {
-                    // 否則每次向右滾動一個容器寬度 (切換至下一張)
                     track.scrollBy({ left: track.clientWidth, behavior: 'smooth' });
                 }
-            }, 1500); // 1.5 秒切換一次
+            }, 3000); // 調整為 3 秒切換，閱讀體驗較佳
         });
     </script>
     <script src="js/main.js"></script>
