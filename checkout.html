@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>胖肉多的種植雜記 - 訂單結帳</title>
+    <link rel="stylesheet" href="css/style.css">
+
+    <style>
+        /* ==========================================================================
+           結帳頁面專用樣式
+           ========================================================================== */
+        .checkout-wrapper {
+            max-width: 1000px;
+            margin: 30px auto 60px auto;
+            padding: 0 20px;
+            font-family: "PingFang TC", "Microsoft JhengHei", sans-serif;
+        }
+
+        .checkout-header {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .checkout-header .line {
+            height: 3px;
+            width: 180px;
+            background-color: #3b669e;
+        }
+
+        .checkout-header h1 {
+            font-size: 2.2rem;
+            color: #1a1a1a;
+            font-weight: bold;
+            margin: 0;
+            letter-spacing: 2px;
+        }
+
+        /* 雙欄佈局 (左側：收件資訊表單，右側：訂單明細) */
+        .checkout-grid {
+            display: grid;
+            grid-template-columns: 1fr 380px;
+            gap: 30px;
+            align-items: start;
+        }
+
+        .checkout-card {
+            border: 2px solid #3b669e;
+            border-radius: 16px;
+            padding: 25px;
+            background-color: #ffffff;
+            box-sizing: border-box;
+        }
+
+        .card-title {
+            font-size: 1.3rem;
+            color: #3b669e;
+            font-weight: bold;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px dashed #3b669e;
+        }
+
+        /* 表單樣式 */
+        .form-group {
+            margin-bottom: 18px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 1rem;
+            color: #333;
+            font-weight: bold;
+            margin-bottom: 6px;
+        }
+
+        .form-group label .required {
+            color: #d9534f;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1px solid #cccccc;
+            border-radius: 8px;
+            font-size: 1rem;
+            box-sizing: border-box;
+            transition: border-color 0.2s;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: #3b669e;
+        }
+
+        /* 訂單明細列表 */
+        .order-item-list {
+            max-height: 280px;
+            overflow-y: auto;
+            margin-bottom: 20px;
+            padding-right: 5px;
+        }
+
+        .order-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px solid #eeeeee;
+        }
+
+        .item-detail {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .item-detail img {
+            width: 50px;
+            height: 50px;
+            border: 1px solid #3b669e;
+            border-radius: 6px;
+            object-fit: cover;
+        }
+
+        .item-name {
+            font-weight: bold;
+            color: #333;
+            font-size: 0.95rem;
+        }
+
+        .item-qty {
+            font-size: 0.85rem;
+            color: #666;
+        }
+
+        .item-price {
+            font-weight: bold;
+            color: #333;
+        }
+
+        /* 價格計算 */
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            font-size: 1rem;
+            color: #555;
+        }
+
+        .summary-total {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 2px solid #3b669e;
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: #222;
+        }
+
+        .summary-total span {
+            color: #3b669e;
+        }
+
+        .submit-order-btn {
+            width: 100%;
+            background-color: #3b669e;
+            color: #ffffff;
+            border: none;
+            border-radius: 8px;
+            padding: 14px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: background-color 0.2s;
+        }
+
+        .submit-order-btn:hover {
+            background-color: #2a4c77;
+        }
+
+        /* 浮動彈出視窗 (Modal) 樣式 */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal-box {
+            background-color: #ffffff;
+            border: 2px solid #3b669e;
+            border-radius: 16px;
+            padding: 30px 40px;
+            text-align: center;
+            max-width: 400px;
+            width: 90%;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+            transform: translateY(-20px);
+            transition: transform 0.3s ease;
+        }
+
+        .modal-overlay.active .modal-box {
+            transform: translateY(0);
+        }
+
+        .modal-title {
+            font-size: 1.5rem;
+            color: #3b669e;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        .modal-msg {
+            font-size: 1.1rem;
+            color: #444;
+            margin-bottom: 25px;
+            line-height: 1.5;
+        }
+
+        .modal-confirm-btn {
+            background-color: #3b669e;
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            padding: 10px 25px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .modal-confirm-btn:hover {
+            background-color: #2a4c77;
+        }
+
+        @media (max-width: 850px) {
+            .checkout-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- 頂部導覽列 -->
+    <header class="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <img src="images/logo.jpg" alt="胖肉多的種植雜記 Logo">
+                <span>胖肉多的種植雜記</span>
+            </div>
+            <nav class="nav-menu">
+                <a href="index.html">首頁</a>
+                <a href="Journal.html">種植雜記</a>
+                <a href="Knowledge.html">植栽知識庫</a>
+                <a href="products.html">所有商品</a>
+                <a href="BrandStory.html">品牌故事</a>
+                <a href="ContactUs.html">聯絡我們</a>
+            </nav>
+            <div class="nav-icons">
+                <a href="#" class="search-btn">🔍</a>
+                <a href="cart.html" class="cart-btn" id="navCartCount">🛒 (0)</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- 主要內容區 -->
+    <div class="checkout-wrapper">
+        <div class="checkout-header">
+            <div class="line"></div>
+            <h1>訂單結帳</h1>
+            <div class="line"></div>
+        </div>
+
+        <div class="checkout-grid">
+            <!-- 左欄：訂購人與配送資訊表單 -->
+            <div class="checkout-card">
+                <div class="card-title">收件人資訊</div>
+                <form id="checkoutForm" onsubmit="handleOrderSubmit(event)">
+                    <div class="form-group">
+                        <label for="fullname">真實姓名 <span class="required">*</span></label>
+                        <input type="text" id="fullname" class="form-control" placeholder="請輸入收件人姓名" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="phone">聯絡電話 <span class="required">*</span></label>
+                        <input type="tel" id="phone" class="form-control" placeholder="請輸入手機號碼" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">電子郵件 <span class="required">*</span></label>
+                        <input type="email" id="email" class="form-control" placeholder="用於接收訂單通知" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="address">寄送地址 <span class="required">*</span></label>
+                        <input type="text" id="address" class="form-control" placeholder="請輸入完整的收件地址" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="payment">付款方式 <span class="required">*</span></label>
+                        <select id="payment" class="form-control" required>
+                            <option value="ecpay">ECPay 綠界科技信用卡 / 超商付款</option>
+                            <option value="transfer">銀行轉帳</option>
+                            <option value="cod">貨到付款</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="note">訂單備註</label>
+                        <textarea id="note" class="form-control" rows="3" placeholder="如有特別送貨需求請在此註明..."></textarea>
+                    </div>
+
+                    <button type="submit" class="submit-order-btn">確認提交訂單</button>
+                </form>
+            </div>
+
+            <!-- 右欄：訂單摘要 -->
+            <div class="checkout-card">
+                <div class="card-title">訂單明細</div>
+                <div class="order-item-list" id="orderItemList">
+                    <!-- 動態渲染購物車商品 -->
+                </div>
+
+                <div class="summary-row">
+                    <span>商品小計</span>
+                    <span id="subtotalText">NT$ 0</span>
+                </div>
+                <div class="summary-row">
+                    <span>運費</span>
+                    <span>NT$ 0 (免運優惠)</span>
+                </div>
+                <div class="summary-total">
+                    <span>總計</span>
+                    <span id="totalText">NT$ 0</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 示範用彈出視窗 (Modal) -->
+    <div class="modal-overlay" id="checkoutModal">
+        <div class="modal-box">
+            <div class="modal-title">系統提示</div>
+            <div class="modal-msg">示範用，無法進行結帳</div>
+            <button class="modal-confirm-btn" onclick="confirmCheckout()">確認並返回首頁</button>
+        </div>
+    </div>
+
+    <!-- 頁尾 Footer -->
+    <footer class="site-footer">
+        <div class="footer-container">
+            <div class="footer-col footer-left">
+                <p>版權宣告：© 2026 胖肉多的種植雜記 All Rights Reserved.</p>
+            </div>
+            <div class="footer-col footer-center">
+                <p>站長：胖肉多</p>
+                <p>連絡電話：(77)77777777</p>
+                <p>連絡地址：福氣市幸福區幸運路168號</p>
+            </div>
+            <div class="footer-col footer-right">
+                <a href="#">隱私權政策</a> /
+                <a href="#">購物與退換貨須知</a> /
+                <a href="#">常見問題 FAQ</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JS 邏輯 -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            renderOrderSummary();
+            updateCartIconCount();
+        });
+
+        function parsePrice(priceStr) {
+            if (typeof priceStr === 'number') return priceStr;
+            if (!priceStr) return 0;
+            const cleanStr = String(priceStr).replace(/[^\d.]/g, '');
+            return parseFloat(cleanStr) || 0;
+        }
+
+        // 渲染訂單明細與金額
+        function renderOrderSummary() {
+            const listContainer = document.getElementById('orderItemList');
+            let cart = JSON.parse(localStorage.getItem('shoppingCart')) || [];
+
+            // 若購物車為空，自動引導回購物車頁面
+            if (cart.length === 0) {
+                alert("您的購物車目前是空的！");
+                window.location.href = "cart.html";
+                return;
+            }
+
+            let total = 0;
+            let listHtml = '';
+
+            cart.forEach(item => {
+                const price = parsePrice(item.price);
+                const itemTotal = price * item.quantity;
+                total += itemTotal;
+                const imgSrc = item.imgName ? `images/${item.imgName}` : '';
+
+                listHtml += `
+                    <div class="order-item">
+                        <div class="item-detail">
+                            ${imgSrc ? `<img src="${imgSrc}" alt="${item.name}">` : '<div style="width:50px;height:50px;background:#eee;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:12px;color:#888;">無圖</div>'}
+                            <div>
+                                <div class="item-name">${item.name}</div>
+                                <div class="item-qty">數量：${item.quantity}</div>
+                            </div>
+                        </div>
+                        <div class="item-price">NT$ ${itemTotal.toLocaleString()}</div>
+                    </div>
+                `;
+            });
+
+            listContainer.innerHTML = listHtml;
+            document.getElementById('subtotalText').innerText = `NT$ ${total.toLocaleString()}`;
+            document.getElementById('totalText').innerText = `NT$ ${total.toLocaleString()}`;
+        }
+
+        // 表單送出，開啟示範用彈出視窗
+        function handleOrderSubmit(e) {
+            e.preventDefault();
+            document.getElementById('checkoutModal').classList.add('active');
+        }
+
+        // 按下彈出視窗確認後：清空購物車並返回首頁
+        function confirmCheckout() {
+            localStorage.removeItem('shoppingCart');
+            window.location.href = 'index.html';
+        }
+
+        // 更新導覽列購物車圖示數量
+        function updateCartIconCount() {
+            let cart = JSON.parse(localStorage.getItem('shoppingCart')) || [];
+            let totalCount = cart.reduce((sum, item) => sum + item.quantity, 0);
+            const cartNavBtn = document.getElementById('navCartCount');
+            if (cartNavBtn) {
+                cartNavBtn.innerText = `🛒 (${totalCount})`;
+            }
+        }
+    </script>
+</body>
+
+</html>

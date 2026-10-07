@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>聯絡我們｜胖肉多的種植雜記</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <!-- 頂部導覽列 (與首頁一致，當前視窗切換) -->
+    <header class="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <img src="images/logo.jpg" alt="胖肉多的種植雜記 Logo">
+                <span>胖肉多的種植雜記</span>
+            </div>
+            <nav class="nav-menu">
+                <a href="index.html">首頁</a>
+                <a href="Journal.html">種植雜記</a>
+                <a href="Knowledge.html">植栽知識庫</a>
+                <a href="Shop.html">資材選物店</a>
+                <a href="BrandStory.html">品牌故事</a>
+                <a href="ContactUs.html" class="active">聯絡我們</a>
+            </nav>
+            <div class="nav-icons">
+                <a href="#" class="search-btn">🔍</a>
+                <a href="cart.html" class="cart-btn" id="navCartCount">🛒 (0)</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- 聯絡我們主要內容區 -->
+    <main class="contact-wrapper">
+        <section class="contact-container">
+            
+            <!-- 上半部：Logo大圖與品牌簡介 -->
+            <div class="contact-header">
+                <img src="images/logo.jpg" alt="胖肉多的種植雜記 Logo 大圖" class="contact-logo-large">
+                <h1 class="contact-title">聯絡胖肉多</h1>
+                <p class="contact-subtitle">不論是種植上的疑難雜症，或是資材選購諮詢，都歡迎與我們聯繫！</p>
+            </div>
+
+            <!-- 下半部：左右兩欄 (左邊資訊 / 右邊表單) -->
+            <div class="contact-grid">
+                
+                <!-- 左側：站長聯絡資訊 -->
+                <div class="contact-info-card">
+                    <h2>聯絡資訊</h2>
+                    <ul class="info-list">
+                        <li><strong>站長姓名：</strong> 胖肉多</li>
+                        <li><strong>電子郵件：</strong> <a href="mailto:abcdefg@gmail.com">abcdefg@gmail.com</a></li>
+                        <li><strong>連絡電話：</strong> (77)77777777</li>
+                        <li><strong>連絡地址：</strong> 福氣市幸福區幸運路168號</li>
+                        <li><strong>服務時間：</strong> 週一至週五 09:00 - 18:00</li>
+                    </ul>
+                </div>
+
+                <!-- 右側：顧客寄信表單 (預留 Formspree 介面) -->
+                <div class="contact-form-card">
+                    <h2>線上留言</h2>
+                    <form action="https://formspree.io/f/cipher513.02@gmail.com" method="POST" class="contact-form">
+                        
+                        <div class="form-group">
+                            <label for="name">您的姓名 <span>*</span></label>
+                            <input type="text" id="name" name="name" placeholder="請輸入您的姓名" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="email">電子郵件 <span>*</span></label>
+                            <input type="email" id="email" name="email" placeholder="example@email.com" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="phone">聯絡電話</label>
+                            <input type="tel" id="phone" name="phone" placeholder="09xx-xxx-xxx">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="subject">諮詢主題</label>
+                            <select id="subject" name="subject">
+                                <option value="種植問題諮詢">種植問題諮詢</option>
+                                <option value="園藝資材詢問">園藝資材詢問</option>
+                                <option value="商業合作提案">商業合作提案</option>
+                                <option value="其他事項">其他事項</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="message">留言內容 <span>*</span></label>
+                            <textarea id="message" name="message" rows="5" placeholder="請詳細說明您的問題或需求..." required></textarea>
+                        </div>
+
+                        <button type="submit" class="btn-submit">傳送訊息 ➔</button>
+                    </form>
+                </div>
+
+            </div>
+        </section>
+    </main>
+
+    <!-- 頁尾 Footer (與首頁一致) -->
+    <footer class="site-footer">
+        <div class="footer-container">
+            <div class="footer-col footer-left">
+                <p>版權宣告：© 2026 胖肉多的種植雜記 All Rights Reserved.</p>
+            </div>
+            <div class="footer-col footer-center">
+                <p>站長：胖肉多</p>
+                <p>連絡電話：(77)77777777</p>
+                <p>連絡地址：福氣市幸福區幸運路168號</p>
+            </div>
+            <div class="footer-col footer-right">
+                <a href="#">隱私權政策</a> / 
+                <a href="#">購物與退換貨須知</a> / 
+                <a href="#">常見問題 FAQ</a>
+            </div>
+        </div>
+    </footer>
+<script src="js/main.js"></script>
+</body>
+</html>
