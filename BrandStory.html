@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>品牌故事｜胖肉多的種植雜記</title>
+    <link rel="stylesheet" href="css/style.css">
+
+    <style>
+        /* ===== 頂部導覽列基本與響應式樣式 ===== */
+        .navbar {
+            background-color: #ffffff;
+            border-bottom: 1px solid #e0e0e0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 10px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: relative;
+        }
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .logo img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+        .logo span {
+            font-size: 20px;
+            font-weight: bold;
+            color: #333333;
+        }
+        .nav-menu {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+        .nav-menu a {
+            text-decoration: none;
+            color: #333333;
+            font-size: 16px;
+            font-weight: 500;
+            transition: color 0.2s ease;
+        }
+        .nav-menu a:hover,
+        .nav-menu a.active {
+            color: #1d3557;
+        }
+
+        .nav-controls {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .menu-toggle {
+            display: none;
+            background-color: #000033;
+            border: 2px solid #0056b3;
+            border-radius: 6px;
+            padding: 6px 10px;
+            cursor: pointer;
+            flex-direction: column;
+            justify-content: space-around;
+            width: 42px;
+            height: 38px;
+            box-sizing: border-box;
+        }
+        .menu-toggle span {
+            display: block;
+            width: 100%;
+            height: 3px;
+            background-color: #ffffff;
+            border-radius: 2px;
+        }
+
+        .auth-btn {
+            display: inline-block;
+            padding: 4px 12px;
+            border: 1.5px solid #1d3557;
+            border-radius: 6px;
+            color: #1d3557;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.2s ease;
+            white-space: nowrap;
+            cursor: pointer;
+            background: transparent;
+        }
+        .auth-btn:hover {
+            background-color: #1d3557;
+            color: #ffffff;
+        }
+
+        .cart-btn {
+            text-decoration: none;
+            color: #333333;
+            font-size: 15px;
+            font-weight: 500;
+            white-space: nowrap;
+        }
+
+        @media (max-width: 768px) {
+            .menu-toggle {
+                display: flex;
+            }
+
+            .nav-menu {
+                display: none;
+                position: absolute;
+                top: 100%;
+                right: 0;
+                width: 220px;
+                background-color: #ffffff;
+                border: 2.5px solid #0056b3;
+                box-shadow: -4px 6px 15px rgba(0,0,0,0.15);
+                flex-direction: column;
+                align-items: flex-start;
+                padding: 15px 20px;
+                gap: 18px;
+                z-index: 1001;
+            }
+
+            .nav-menu.active {
+                display: flex;
+            }
+
+            .nav-menu a {
+                font-size: 22px;
+                color: #222222;
+                text-decoration: none;
+                width: 100%;
+                display: block;
+                font-weight: normal;
+            }
+        }
+
+        /* ===== 登入彈出視窗 (Modal) 樣式 ===== */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+        }
+        .modal-overlay.active {
+            display: flex;
+        }
+        .login-modal {
+            background-color: #ffffff;
+            border: 2px solid #1d3557;
+            border-radius: 12px;
+            width: 90%;
+            max-width: 380px;
+            padding: 30px 25px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+            position: relative;
+            box-sizing: border-box;
+        }
+        .login-modal .close-btn {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            font-size: 22px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: #666;
+        }
+        .login-modal .close-btn:hover {
+            color: #000;
+        }
+        .login-modal h2 {
+            text-align: center;
+            font-size: 26px;
+            color: #111;
+            margin-top: 0;
+            margin-bottom: 25px;
+            font-weight: normal;
+            letter-spacing: 2px;
+        }
+        .login-form .form-group {
+            margin-bottom: 20px;
+        }
+        .login-form label {
+            display: block;
+            font-size: 18px;
+            color: #111;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+        .login-form input[type="text"],
+        .login-form input[type="password"] {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1.5px solid #1d3557;
+            border-radius: 6px;
+            font-size: 14px;
+            box-sizing: border-box;
+            outline: none;
+        }
+        .login-form input::placeholder {
+            color: #b5b5b5;
+            font-size: 13px;
+        }
+        .login-form .submit-btn {
+            width: 100%;
+            background-color: #00b04f;
+            color: #ffffff;
+            border: 1.5px solid #1d3557;
+            border-radius: 6px;
+            padding: 10px;
+            font-size: 22px;
+            cursor: pointer;
+            margin-top: 10px;
+            transition: background-color 0.2s ease;
+            letter-spacing: 4px;
+        }
+        .login-form .submit-btn:hover {
+            background-color: #009643;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 頂部導覽列 (Navbar) -->
+    <header class="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <img src="./images/logo.jpg" alt="胖肉多的種植雜記 Logo" onerror="this.style.display='none'">
+                <span>胖肉多的種植雜記</span>
+            </div>
+
+            <nav class="nav-menu" id="navMenu">
+                <a href="./index.html">首頁</a>
+                <a href="./Journal.html">種植雜記</a>
+                <a href="./Knowledge.html">植栽知識庫</a>
+                <a href="./Shop.html">資材選物店</a>
+                <a href="./BrandStory.html" class="active">品牌故事</a>
+                <a href="./ContactUs.html">聯絡我們</a>
+            </nav>
+
+            <div class="nav-controls">
+                <button type="button" class="auth-btn trigger-auth-btn">登入/註冊</button>
+                <a href="./cart.html" class="cart-btn" id="navCartCount">🛒 (0)</a>
+                
+                <button type="button" class="menu-toggle" id="menuToggle" aria-label="切換選單">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- 品牌故事主要內容區 -->
+    <main class="story-wrapper">
+        <section class="story-container">
+            <h1 class="story-title">品牌故事</h1>
+            <p class="story-subtitle">在泥土與綠意間，找回生活的節奏</p>
+            
+            <div class="story-banner-img">
+                <img src="images/story.jpg" alt="胖肉多的種植雜記 品牌故事">
+            </div>
+
+            <div class="story-content">
+                <blockquote class="story-quote">
+                    「種植從來不是照本宣科，而是一場與植物的溫柔對話。」
+                </blockquote>
+
+                <p>「胖肉多的種植雜記」誕生於一個陽光灑落的陽台。十年前，站長胖肉多因為一盆多肉植物開啟了綠植之路。從最初對介質配比的一知半解，到試過無數種配方、踩過淹水與病蟲害的坑，種植的過程雖然充滿挑戰，卻也帶來了無法言喻的平靜與療癒。</p>
+
+                <p>隨著對多肉與玫瑰的熱愛日益加深，胖肉多走訪了全台名園，與許多花農與資深玩家交流，累積了寶貴的實戰經驗。我們深信，每株植物都有自己的生命語言，而種植不需要繁複的理論，只需要坦誠的經驗分享與對生命的敬意。</p>
+
+                <h2>我們的使命</h2>
+                <ul class="mission-list">
+                    <li><strong>實用坦誠的指南：</strong>拒絕空洞的理論，只分享親自踩坑後驗證有效的種植心得。</li>
+                    <li><strong>嚴選優質資材：</strong>堅持「只賣自己用過的好東西」，讓每位植物新手都能輕鬆上手。</li>
+                    <li><strong>打造綠色社群：</strong>為熱愛花草的同好，提供一個溫暖交流、共同成長的綠洲。</li>
+                </ul>
+
+                <p class="story-footer-text">歡迎來到這片綠意天地，跟著胖肉多一起記錄每一株植物的生命故事，打造屬於你的綠色日常。</p>
+            </div>
+        </section>
+    </main>
+
+    <!-- 會員登入浮動視窗 (Modal) -->
+    <div class="modal-overlay" id="loginModal">
+        <div class="login-modal">
+            <button type="button" class="close-btn" id="closeModalBtn">&times;</button>
+            <h2>會員登入</h2>
+            <form class="login-form" id="loginForm">
+                <div class="form-group">
+                    <label for="username">會員帳號</label>
+                    <input type="text" id="username" placeholder="限使用英文、數字，至少6個字元" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">密碼</label>
+                    <input type="password" id="password" placeholder="限使用英文、數字，至少6個字元" required>
+                </div>
+                <button type="submit" class="submit-btn">登入</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- 頁尾 Footer -->
+    <footer class="site-footer">
+        <div class="footer-container">
+            <div class="footer-col footer-left">
+                <p>版權宣告：© 2026 胖肉多的種植雜記 All Rights Reserved.</p>
+            </div>
+            <div class="footer-col footer-center">
+                <p>站長：胖肉多</p>
+                <p>連絡電話：(77)77777777</p>
+                <p>連絡地址：福氣市幸福區幸運路168號</p>
+            </div>
+            <div class="footer-col footer-right">
+                <a href="#">隱私權政策</a> / 
+                <a href="#">購物與退換貨須知</a> / 
+                <a href="#">常見問題 FAQ</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JS 邏輯 -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            updateCartCount();
+            initNavAndModal();
+        });
+
+        function updateCartCount() {
+            try {
+                let cart = JSON.parse(localStorage.getItem('shoppingCart')) || [];
+                let totalCount = cart.reduce((sum, item) => sum + (Number(item.quantity) || 0), 0);
+                const cartNavBtn = document.getElementById('navCartCount');
+                if (cartNavBtn) {
+                    cartNavBtn.innerText = `🛒 (${totalCount})`;
+                }
+            } catch (e) {
+                console.error("購物車數量解析失敗:", e);
+            }
+        }
+
+        function initNavAndModal() {
+            const menuToggle = document.getElementById("menuToggle");
+            const navMenu = document.getElementById("navMenu");
+
+            if (menuToggle && navMenu) {
+                menuToggle.addEventListener("click", function (e) {
+                    e.stopPropagation();
+                    navMenu.classList.toggle("active");
+                });
+
+                document.addEventListener("click", function (e) {
+                    if (!navMenu.contains(e.target) && !menuToggle.contains(e.target)) {
+                        navMenu.classList.remove("active");
+                    }
+                });
+            }
+
+            const triggerAuthBtns = document.querySelectorAll(".trigger-auth-btn");
+            const loginModal = document.getElementById("loginModal");
+            const closeModalBtn = document.getElementById("closeModalBtn");
+            const loginForm = document.getElementById("loginForm");
+
+            triggerAuthBtns.forEach(btn => {
+                btn.addEventListener("click", function (e) {
+                    e.preventDefault();
+                    if (navMenu) navMenu.classList.remove("active");
+                    loginModal.classList.add("active");
+                });
+            });
+
+            if (closeModalBtn) {
+                closeModalBtn.addEventListener("click", function () {
+                    loginModal.classList.remove("active");
+                });
+            }
+
+            if (loginModal) {
+                loginModal.addEventListener("click", function (e) {
+                    if (e.target === loginModal) {
+                        loginModal.classList.remove("active");
+                    }
+                });
+            }
+
+            if (loginForm) {
+                loginForm.addEventListener("submit", function (e) {
+                    e.preventDefault();
+                    alert("此視窗僅供展示使用，無實際登入功能。");
+                    loginForm.reset();
+                    loginModal.classList.remove("active");
+                });
+            }
+        }
+    </script>
+</body>
+</html>
