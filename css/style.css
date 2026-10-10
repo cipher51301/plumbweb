@@ -1,0 +1,470 @@
+/* ==========================================================================
+   1. 全域基本設定 (Global Styles)
+   ========================================================================== */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: "PingFang TC", "Microsoft JhengHei", sans-serif;
+    background-color: #f7f5f0;
+    color: #333;
+    line-height: 1.6;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* ==========================================================================
+   2. 版面兩欄結構 (Main Layout)
+   ========================================================================== */
+.main-wrapper {
+    max-width: 1280px;
+    margin: 20px auto;
+    padding: 0 15px;
+    display: flex;
+    gap: 25px;
+}
+
+.content-area { 
+    flex: 1.2; 
+}
+
+.sidebar {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* ==========================================================================
+   3. 首頁區塊樣式 (Index Page Sections)
+   ========================================================================== */
+
+/* 第一屏：Hero Banner 主視覺 */
+.hero-banner {
+    position: relative;
+    border-radius: 8px;
+    overflow: hidden;
+    margin-bottom: 25px;
+}
+
+.banner-img {
+    width: 100%;
+    height: 380px;
+    object-fit: cover;
+}
+
+.banner-overlay {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(45, 62, 50, 0.45);
+    backdrop-filter: blur(2px);
+    padding: 25px 35px;
+    border-radius: 8px;
+    text-align: center;
+    color: #ffffff;
+    width: 80%;
+}
+
+.banner-title { font-size: 1.6rem; margin-bottom: 8px; }
+.banner-subtitle { font-size: 1rem; margin-bottom: 15px; }
+
+.banner-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+}
+
+.btn {
+    padding: 8px 18px;
+    border-radius: 4px;
+    font-size: 0.9rem;
+}
+
+.btn-primary { background-color: #6b8e23; color: #fff; }
+.btn-secondary { background-color: #8b5a2b; color: #fff; }
+
+/* 第二屏：關於站長與品牌初衷 */
+.about-section {
+    background: #ffffff;
+    padding: 25px;
+    border-radius: 8px;
+    margin-bottom: 25px;
+}
+
+.about-section h2 {
+    font-size: 1.3rem;
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+.about-content {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.about-img { flex-shrink: 0; }
+.about-img img {
+    width: 130px;
+    height: 130px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.about-text .quote {
+    font-weight: bold;
+    margin-bottom: 6px;
+    color: #444;
+}
+
+/* 通用標題與卡片外框設定 */
+.shop-preview, .articles-preview, .carousel-section {
+    background: #ffffff;
+    padding: 20px;
+    border-radius: 8px;
+}
+
+.section-title { font-size: 1.15rem; text-align: center; margin-bottom: 4px; }
+.section-subtitle { font-size: 0.8rem; text-align: center; color: #666; margin-bottom: 15px; }
+
+/* 第四屏：熱門資材選物 */
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+}
+
+.product-card { text-align: center; position: relative; }
+.product-card .tag {
+    position: absolute;
+    top: 4px;
+    left: 4px;
+    background: #e74c3c;
+    color: #fff;
+    font-size: 0.65rem;
+    padding: 2px 4px;
+    border-radius: 3px;
+}
+
+.product-card img {
+    width: 100%;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 6px;
+    margin-bottom: 6px;
+}
+
+.product-card h4 { font-size: 0.75rem; font-weight: normal; line-height: 1.3; }
+.shop-more { text-align: center; margin-top: 15px; }
+.btn-more { font-size: 0.85rem; color: #8c533e; font-weight: bold; }
+
+/* 第五屏：最新種植雜記 */
+.article-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin-top: 15px;
+}
+
+.article-card img {
+    width: 100%;
+    height: 75px;
+    object-fit: cover;
+    border-radius: 6px;
+    margin-bottom: 6px;
+}
+
+.article-card h4 { font-size: 0.8rem; color: #333; line-height: 1.3; }
+.article-more { text-align: center; margin-top: 15px; }
+
+/* 第六屏：照片輪播區塊 */
+.carousel-section {
+    background: #ffffff;
+    padding: 20px;
+    border-radius: 8px;
+    margin-top: 20px;
+}
+
+/* ==========================================================================
+   4. 品牌故事頁面專屬樣式 (BrandStory.html)
+   ========================================================================== */
+.story-wrapper {
+    max-width: 900px;
+    margin: 30px auto;
+    padding: 0 20px;
+}
+
+.story-container {
+    background: #ffffff;
+    padding: 40px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+.story-title {
+    text-align: center;
+    font-size: 2rem;
+    color: #44351a;
+    margin-bottom: 5px;
+}
+
+.story-subtitle {
+    text-align: center;
+    font-size: 1rem;
+    color: #6b8e23;
+    font-weight: bold;
+    margin-bottom: 25px;
+}
+
+.story-banner-img {
+    width: 100%;
+    margin-bottom: 30px;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.story-banner-img img {
+    width: 100%;
+    max-height: 400px;
+    object-fit: cover;
+}
+
+.story-content {
+    font-size: 1rem;
+    line-height: 1.8;
+    color: #444;
+}
+
+.story-content p {
+    margin-bottom: 18px;
+}
+
+.story-quote {
+    font-size: 1.15rem;
+    font-weight: bold;
+    color: #8c533e;
+    border-left: 4px solid #8c533e;
+    margin: 20px 0 25px 0;
+    background-color: #fcf9f2;
+    padding: 12px 18px;
+    border-radius: 0 6px 6px 0;
+}
+
+.story-content h2 {
+    font-size: 1.3rem;
+    color: #333;
+    margin: 30px 0 15px 0;
+    border-bottom: 2px solid #ebd29c;
+    padding-bottom: 5px;
+}
+
+.mission-list {
+    margin-left: 20px;
+    margin-bottom: 25px;
+}
+
+.mission-list li {
+    margin-bottom: 10px;
+}
+
+.mission-list strong {
+    color: #6b8e23;
+}
+
+.story-footer-text {
+    font-weight: bold;
+    color: #555;
+    text-align: center;
+    margin-top: 30px;
+}
+
+/* ==========================================================================
+   5. 聯絡我們頁面專屬樣式 (ContactUs.html)
+   ========================================================================== */
+.contact-wrapper {
+    max-width: 1100px;
+    margin: 30px auto;
+    padding: 0 20px;
+}
+
+.contact-container {
+    background: #ffffff;
+    padding: 40px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+.contact-header {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.contact-logo-large {
+    width: 140px;
+    height: 140px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin: 0 auto 15px auto;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+.contact-title {
+    font-size: 2rem;
+    color: #44351a;
+    margin-bottom: 8px;
+}
+
+.contact-subtitle {
+    font-size: 0.95rem;
+    color: #666;
+}
+
+.contact-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.5fr;
+    gap: 35px;
+}
+
+.contact-info-card, .contact-form-card {
+    background: #fcf9f2;
+    padding: 25px;
+    border-radius: 8px;
+}
+
+.contact-info-card h2, .contact-form-card h2 {
+    font-size: 1.25rem;
+    color: #8c533e;
+    margin-bottom: 20px;
+    border-bottom: 2px solid #ebd29c;
+    padding-bottom: 8px;
+}
+
+.info-list {
+    list-style: none;
+}
+
+.info-list li {
+    margin-bottom: 15px;
+    font-size: 0.95rem;
+    color: #444;
+}
+
+.info-list a {
+    color: #6b8e23;
+    font-weight: bold;
+    text-decoration: underline;
+}
+
+.contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.form-group label {
+    font-size: 0.9rem;
+    font-weight: bold;
+    color: #333;
+}
+
+.form-group label span {
+    color: #e74c3c;
+}
+
+.form-group input, .form-group select, .form-group textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 0.95rem;
+    background-color: #ffffff;
+    font-family: inherit;
+}
+
+.form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+    outline: none;
+    border-color: #6b8e23;
+}
+
+.btn-submit {
+    background-color: #6b8e23;
+    color: #ffffff;
+    padding: 12px;
+    border: none;
+    border-radius: 4px;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    margin-top: 10px;
+}
+
+.btn-submit:hover {
+    background-color: #55721a;
+}
+
+/* ==========================================================================
+   6. 頁尾 (Footer)
+   ========================================================================== */
+.site-footer {
+    background-color: #ebd29c;
+    border-top: 2px solid #d4b87b;
+    padding: 20px;
+    margin-top: 30px;
+    font-size: 0.85rem;
+    color: #44351a;
+}
+
+.footer-container {
+    max-width: 1280px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.footer-col { flex: 1; }
+.footer-left { text-align: left; }
+.footer-center { text-align: center; }
+.footer-right { text-align: right; }
+.footer-right a { color: #44351a; text-decoration: underline; }
+
+/* ==========================================================================
+   7. 響應式佈局 (Mobile RWD)
+   ========================================================================== */
+@media (max-width: 900px) {
+    .main-wrapper { flex-direction: column; }
+    .footer-container { flex-direction: column; gap: 10px; text-align: center; }
+    .footer-left, .footer-center, .footer-right { text-align: center; }
+}
+
+@media (max-width: 768px) {
+    .contact-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 600px) {
+    .story-container { padding: 20px; }
+    .story-title { font-size: 1.6rem; }
+}
