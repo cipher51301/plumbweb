@@ -1,5 +1,5 @@
 /* ================================================================
-   胖肉多網站共用 CSS｜教學導讀
+   胖肉多網站共用 CSS
    1. CSS 的「選擇器」指出要套用樣式的 HTML 元素；大括號內為屬性和值。
    2. 共用選擇器（如 .navbar）會影響所有引用本檔的頁面，修改前請全站測試。
    3. @media 內的規則只在指定螢幕條件成立時生效，用於 RWD 響應式排版。
@@ -61,7 +61,7 @@ img {
    3. 首頁區塊樣式 (Index Page Sections)
    ========================================================================== */
 
-/*【教學】Hero Banner 是首頁第一眼看到的主圖；object-fit 控制圖片裁切方式。 */
+/*【說明】Hero Banner 是首頁第一眼看到的主圖；object-fit 控制圖片裁切方式。 */
 /* 第一屏：Hero Banner 主視覺 */
 .hero-banner {
     position: relative;
@@ -108,7 +108,7 @@ img {
 .btn-primary { background-color: #6b8e23; color: #fff; }
 .btn-secondary { background-color: #8b5a2b; color: #fff; }
 
-/*【教學】介紹區使用網格、圖片及文字布局；gap 決定項目間距。 */
+/*【說明】介紹區使用網格、圖片及文字布局；gap 決定項目間距。 */
 /* 第二屏：關於站長與品牌初衷 */
 .about-section {
     background: #ffffff;
@@ -203,7 +203,7 @@ img {
 .article-card h4 { font-size: 0.8rem; color: #333; line-height: 1.3; }
 .article-more { text-align: center; margin-top: 15px; }
 
-/*【教學】輪播外觀由 CSS 控制，切換圖片的時機由 js/main.js 控制。 */
+/*【說明】輪播外觀由 CSS 控制，切換圖片的時機由 js/main.js 控制。 */
 /* 第六屏：照片輪播區塊 */
 .carousel-section {
     margin-top: 20px;
@@ -483,7 +483,7 @@ img {
    8. 首頁專屬樣式（原 index.html 內嵌樣式移至此處）
    ========================================================================== */
 
-/*【教學】.navbar 為跨頁共用導覽列；下方 @media 使手機版改用漢堡選單。 */
+/*【說明】.navbar 為跨頁共用導覽列；下方 @media 使手機版改用漢堡選單。 */
 /* ===== 頂部導覽列基本與響應式樣式 ===== */
         .navbar {
             background-color: #ffffff;
@@ -657,7 +657,7 @@ img {
             opacity: 1;
         }
 
-        /*【教學】.modal-overlay 是遮罩層；切換 active class 即可顯示原本的登入輸入框。 */
+        /*【說明】.modal-overlay 是遮罩層；切換 active class 即可顯示原本的登入輸入框。 */
 /* ===== 登入彈出視窗 (Modal) 樣式 ===== */
         .modal-overlay {
             display: none;
