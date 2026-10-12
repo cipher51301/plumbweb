@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html lang="zh-TW">
 <head>
-    <!--【教學導讀：聯絡我們】
+    <!--【聯絡我們】
         目的：顯示聯絡資料與展示型留言表單；目前不會實際寄信。
         HTML 管理內容與結構；CSS 管理外觀；JavaScript 管理互動與資料。
         教學提醒：id / class 常被 CSS 與 JS 引用，修改名稱前應先搜尋全站。
-        若涉及商品、文章、購物車，請保留路徑與既有資料格式。
+        若涉及商品、文章、購物車，則保留路徑與既有資料格式。
     -->
 
     <meta charset="UTF-8">
@@ -14,11 +14,11 @@
     <link rel="stylesheet" href="css/style.css">
     <script defer src="./js/login-notice.js"></script>
 </head>
-    <!--【教學】body 是可見頁面內容的起點；此處的 data-page 若存在，供 main.js 判斷頁面類型。 -->
+    <!--【說明】body 是可見頁面內容的起點；此處的 data-page 若存在，供 main.js 判斷頁面類型。 -->
 <body>
 
     <!-- 頂部導覽列 (Navbar) -->
-    <!--【教學】共用導覽列：使用 css/style.css；menuToggle、navMenu、loginModal 等元素由 JS 控制。 -->
+    <!--【說明】共用導覽列：使用 css/style.css；menuToggle、navMenu、loginModal 等元素由 JS 控制。 -->
     <header class="navbar">
         <div class="nav-container">
             <div class="logo">
@@ -49,7 +49,7 @@
     </header>
 
     <!-- 聯絡我們主要內容區 -->
-    <!--【教學】main 裡是本頁的主要內容；動態內容容器通常由 JS 依 id 尋找並填入資料。 -->
+    <!--【說明】main 裡是本頁的主要內容；動態內容容器通常由 JS 依 id 尋找並填入資料。 -->
     <main class="contact-wrapper">
         <section class="contact-container">
             <div class="contact-header">
@@ -111,7 +111,7 @@
     </main>
 
     <!-- 會員登入浮動視窗 (Modal) -->
-    <!--【教學】登入展示視窗：送出表單只顯示提示，沒有實際帳號驗證或伺服器登入。 -->
+    <!--【說明】登入展示視窗：送出表單只顯示提示，沒有實際帳號驗證或伺服器登入。 -->
     <div class="modal-overlay" id="loginModal">
         <div class="login-modal">
             <button type="button" class="close-btn" id="closeModalBtn">&times;</button>
@@ -131,7 +131,7 @@
     </div>
 
     <!-- 頁尾 Footer -->
-    <!--【教學】全站頁尾：以下三個尚未完成的說明頁，統一前往 maintenance.html。 -->
+    <!--【說明】全站頁尾：以下三個尚未完成的說明頁，統一前往 maintenance.html。 -->
     <footer class="site-footer">
         <div class="footer-container">
             <div class="footer-col footer-left">
@@ -152,15 +152,15 @@
 
     <!-- JS 邏輯 -->
     <script>
-        //【教學】此段是頁面專用 JavaScript。DOMContentLoaded 可確保 HTML 元素已建立，再開始綁定事件。
-        //【教學】如需調整外觀請改 CSS；如需調整按鈕行為才改事件處理函式。
+        //【說明】此段是頁面專用 JavaScript。DOMContentLoaded 可確保 HTML 元素已建立，再開始綁定事件。
+        //【說明】如需調整外觀由 CSS 進行修改；如需調整按鈕行為才改事件處理函式。
         document.addEventListener("DOMContentLoaded", function() {
             updateCartCount();
             initNavAndModal();
             initContactForm();
         });
 
-        //【教學】讀取 shoppingCart，計算導覽列顯示的購物車商品總數。
+        //【說明】讀取 shoppingCart，計算導覽列顯示的購物車商品總數。
 
         function updateCartCount() {
             try {
@@ -175,7 +175,7 @@
             }
         }
 
-        //【教學】註冊漢堡選單及展示型登入視窗的點擊、關閉與送出事件。
+        //【說明】註冊漢堡選單及展示型登入視窗的點擊、關閉與送出事件。
 
         function initNavAndModal() {
             const menuToggle = document.getElementById("menuToggle");
@@ -232,7 +232,7 @@
         }
 
         /* ===== 聯絡表單「示範跳窗」控制機制 ===== */
-        //【教學】攔截示範留言表單送出，顯示提示並重設欄位；目前未實際寄信。
+        //【說明】攔截示範留言表單送出，顯示提示並重設欄位；目前未實際寄信。
         function initContactForm() {
             const contactForm = document.getElementById("contactForm");
             if (contactForm) {
@@ -240,7 +240,7 @@
                     // 攔截預設提交行為，阻止頁面跳轉
                     e.preventDefault();
                     
-                    //【教學】先重設表單，再呼叫網站的共用提示視窗；不會實際寄信。
+                    //【說明】先重設表單，再呼叫網站的共用提示視窗；不會實際寄信。
                     contactForm.reset();
                     showSiteNotice("此表單僅供展示使用，\n無實際寄信功能。");
                 });
