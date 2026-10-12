@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <!--【網站首頁】
+        目的：首頁透過導覽列、品牌介紹、精選內容和輪播圖呈現網站入口。
+        HTML 管理內容與結構；CSS 管理外觀；JavaScript 管理互動與資料。
+        提醒：id / class 常被 CSS 與 JS 引用，修改名稱前應先搜尋全站。
+        若涉及商品、文章、購物車，則保留路徑與既有資料格式。
+    -->
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>胖肉多的種植雜記</title>
+    <!-- SEO 與 社群分享標籤 -->
+    <meta name="description" content="記錄每一株植物的生命故事，打造屬於自己的綠色日常。">
+    <meta property="og:title" content="胖肉多的種植雜記">
+    <meta property="og:description" content="記錄每一株植物的生命故事，打造屬於自己的綠色日常。">
+    <meta property="og:image" content="./images/banner.jpg">
+    
+    <!-- 樣式表連結 -->
+    <link rel="stylesheet" href="./css/style.css">
+
+    <script defer src="./js/login-notice.js"></script>
+</head>
+    <!--【說明】body 是可見頁面內容的起點；此處的 data-page 若存在，供 main.js 判斷頁面類型。 -->
+<body>
+
+    <!-- 頂部導覽列 (Navbar) -->
+    <!--【說明】共用導覽列：使用 css/style.css；menuToggle、navMenu、loginModal 等元素由 JS 控制。 -->
+    <header class="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <img src="./images/logo.jpg" alt="胖肉多的種植雜記 Logo" onerror="this.style.display='none'">
+                <span>胖肉多的種植雜記</span>
+            </div>
+
+            <!-- 選單連結區塊 -->
+            <nav class="nav-menu" id="navMenu">
+                <a href="./index.html" class="active">首頁</a>
+                <a href="./Journal.html">種植雜記</a>
+                <a href="./Knowledge.html">植栽知識庫</a>
+                <a href="./Shop.html">資材選物店</a>
+                <a href="./BrandStory.html">品牌故事</a>
+                <a href="./ContactUs.html">聯絡我們</a>
+            </nav>
+
+            <!-- 右側功能按鈕區塊 -->
+            <div class="nav-controls">
+                <button type="button" class="auth-btn trigger-auth-btn">登入/註冊</button>
+                <a href="./cart.html" class="cart-btn" id="navCartCount">🛒 (0)</a>
+                
+                <!-- 行動端漢堡選單按鈕 -->
+                <button type="button" class="menu-toggle" id="menuToggle" aria-label="切換選單" aria-controls="navMenu" aria-expanded="false">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- 主要內容區域 -->
+    <div class="main-wrapper">
+        
+        <!-- 左側主內容區 -->
+        <!--【說明】main 裡是本頁的主要內容；動態內容容器通常由 JS 依 id 尋找並填入資料。 -->
+    <main class="content-area">
+            
+            <!-- 第一屏：主視覺 Banner -->
+            <section class="hero-banner">
+                <img src="./images/banner.jpg" alt="多肉與玫瑰" class="banner-img">
+                <div class="banner-overlay">
+                    <h1 class="banner-title">記錄每一株植物的生命故事</h1>
+                    <p class="banner-subtitle">打造屬於自己的綠色日常</p>
+                    <div class="banner-buttons">
+                        <a href="./Knowledge.html" class="btn btn-primary">探索知識庫</a>
+                        <a href="./Shop.html" class="btn btn-secondary">逛逛資材選物</a>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 第二屏：關於站長與品牌初衷 -->
+            <section class="about-section">
+                <h2>胖肉多的植栽歷程</h2>
+                <div class="about-content">
+                    <div class="about-img">
+                        <img src="./images/webmaster.jpg" alt="站長胖肉多">
+                    </div>
+                    <div class="about-text">
+                        <p class="quote">「種植從來不是照本宣科，而是一場與植物的溫柔對話。」</p>
+                        <p>我是胖肉多。因為熱愛多肉與玫瑰，過去十年間我試過無數介質配比、踩過無數淹水與病蟲害的坑。這座網站記錄了我走過的十年經驗，以及走訪全台名園的心得。希望這裡能成為你種植路上最實用、最坦誠的植物指南。</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 第三屏：精選核心專區 (包含 Hover 切換大方塊功能) -->
+            <section class="categories-section">
+                <div class="category-grid">
+                    <div class="category-card card-succulent" data-key="succulent" role="button" tabindex="0" aria-label="查看多肉實錄">
+                        <img src="./images/card01.jpg" alt="多肉實錄">
+                        <span>多肉實錄</span>
+                    </div>
+                    <div class="category-card card-rose" data-key="rose" role="button" tabindex="0" aria-label="查看玫瑰日記">
+                        <img src="./images/card02.jpg" alt="玫瑰日記">
+                        <span>玫瑰日記</span>
+                    </div>
+                    <div class="category-card card-garden" data-key="garden" role="button" tabindex="0" aria-label="查看名園參訪">
+                        <img src="./images/card03.jpg" alt="名園參訪">
+                        <span>名園參訪</span>
+                    </div>
+                    <div class="category-card card-rescue" data-key="rescue" role="button" tabindex="0" aria-label="查看敗木救星">
+                        <img src="./images/card04.jpg" alt="敗木救星">
+                        <span>敗木救星</span>
+                    </div>
+                </div>
+
+                <!-- 滑鼠移入時動態切換的大方塊 (預設多肉實錄，點擊直接跳轉 maintenance.html) -->
+                <div class="feature-display-box card-succulent" id="featureDisplayBox" role="link" tabindex="0" aria-label="進入精選專區">
+                    <div class="display-img-wrapper">
+                        <img src="./images/圖-多肉實錄.png" alt="多肉實錄" id="displayImg">
+                    </div>
+                    <h2 class="display-title" id="displayTitle">多肉實錄</h2>
+                </div>
+            </section>
+
+        </main>
+
+        <!-- 右側側邊欄 -->
+        <aside class="sidebar">
+            
+            <!-- 第四屏：熱門資材嚴選 -->
+            <section class="shop-preview">
+                <h3 class="section-title">站長親測推薦｜嚴選園藝資材</h3>
+                <p class="section-subtitle">只賣自己用過的好東西，讓植物生長事半功倍。</p>
+                
+                <div class="product-grid">
+                    <div class="product-card">
+                        <span class="tag">暢銷熱賣</span>
+                        <img src="./images/commodity001.jpg" alt="胖肉多特調介質">
+                        <h4>胖肉多特調｜多肉全顆粒通用介質 2L</h4>
+                    </div>
+                    <div class="product-card">
+                        <span class="tag">站長推薦</span>
+                        <img src="./images/commodity002.jpg" alt="玫瑰專用土">
+                        <h4>玫瑰專用｜透氣有機質配方土 5L</h4>
+                    </div>
+                    <div class="product-card">
+                        <span class="tag">耐用首選</span>
+                        <img src="./images/commodity003.jpg" alt="園藝修剪剪刀">
+                        <h4>日本進口高碳鋼園藝修剪剪刀</h4>
+                    </div>
+                    <div class="product-card">
+                        <span class="tag">新手必備</span>
+                        <img src="./images/commodity004.jpg" alt="肥料組合包">
+                        <h4>緩釋肥與開花專用液肥組合包</h4>
+                    </div>
+                </div>
+                
+                <div class="shop-more">
+                    <a href="./Shop.html" class="btn-more">查看更多嚴選資材 ➔</a>
+                </div>
+            </section>
+
+            <!-- 第五屏：最新種植雜記 -->
+            <section class="articles-preview">
+                <h3 class="section-title">最新種植雜記</h3>
+                <div class="article-grid">
+                    <article class="article-card">
+                        <img src="./images/article01.jpg" alt="夏日多肉渡夏">
+                        <h4>《夏天來了！多肉植物渡夏遮陰與限水實戰指南》</h4>
+                    </article>
+                    <article class="article-card">
+                        <img src="./images/article02.jpg" alt="玫瑰黑斑病">
+                        <h4>《玫瑰黑斑病又發作？三步驟迅速控制病害蔓延》</h4>
+                    </article>
+                    <article class="article-card">
+                        <img src="./images/article03.jpg" alt="彰化田尾遊記">
+                        <h4>《走訪彰化田尾玫瑰園：專業花農沒告訴你的修剪時間點》</h4>
+                    </article>
+                </div>
+                <div class="article-more">
+                    <a href="./Journal.html" class="btn-more">看更多文章 ➔</a>
+                </div>
+            </section>
+
+            <!-- 第六屏：輪播照片專區 -->
+            <section class="carousel-section">
+                <h3 class="section-title">花園日常剪影</h3>
+                <div class="carousel-container">
+                    <div class="carousel-track" id="carouselTrack">
+                        <!-- JS 動態寫入圖片 -->
+                    </div>
+                </div>
+            </section>
+
+        </aside>
+
+    </div>
+
+    <!-- 會員登入浮動視窗 (Modal) -->
+    <!--【說明】登入展示視窗：送出表單只顯示提示，沒有實際帳號驗證或伺服器登入。 -->
+    <div class="modal-overlay" id="loginModal" role="dialog" aria-modal="true" aria-labelledby="loginModalTitle">
+        <div class="login-modal">
+            <button type="button" class="close-btn" id="closeModalBtn" aria-label="關閉登入視窗">&times;</button>
+            <h2 id="loginModalTitle">會員登入</h2>
+            <form class="login-form" id="loginForm">
+                <div class="form-group">
+                    <label for="username">會員帳號</label>
+                    <input type="text" id="username" autocomplete="username" placeholder="限使用英文、數字，至少6個字元" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">密碼</label>
+                    <input type="password" id="password" autocomplete="current-password" placeholder="限使用英文、數字，至少6個字元" required>
+                </div>
+                <button type="submit" class="submit-btn">登入</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- 頁尾 Footer -->
+    <!--【說明】全站頁尾：以下三個尚未完成的說明頁，統一前往 maintenance.html。 -->
+    <footer class="site-footer">
+        <div class="footer-container">
+            <div class="footer-col footer-left">
+                <p>版權宣告：© 2026 胖肉多的種植雜記 All Rights Reserved.</p>
+            </div>
+            <div class="footer-col footer-center">
+                <p>站長：胖肉多</p>
+                <p>連絡電話：(77)77777777</p>
+                <p>連絡地址：福氣市幸福區幸運路168號</p>
+            </div>
+            <div class="footer-col footer-right">
+                <a href="./maintenance.html">隱私權政策</a> / 
+                <a href="./maintenance.html">購物與退換貨須知</a> / 
+                <a href="./maintenance.html">常見問題 FAQ</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript 腳本區塊 -->
+    <script src="./js/main.js" defer></script>
+</body>
+</html>

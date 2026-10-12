@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <!--【聯絡我們】
+        目的：顯示聯絡資料與展示型留言表單；目前不會實際寄信。
+        HTML 管理內容與結構；CSS 管理外觀；JavaScript 管理互動與資料。
+        提醒：id / class 常被 CSS 與 JS 引用，修改名稱前應先搜尋全站。
+        若涉及商品、文章、購物車，則保留路徑與既有資料格式。
+    -->
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>聯絡我們｜胖肉多的種植雜記</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script defer src="./js/login-notice.js"></script>
+</head>
+    <!--【說明】body 是可見頁面內容的起點；此處的 data-page 若存在，供 main.js 判斷頁面類型。 -->
+<body>
+
+    <!-- 頂部導覽列 (Navbar) -->
+    <!--【說明】共用導覽列：使用 css/style.css；menuToggle、navMenu、loginModal 等元素由 JS 控制。 -->
+    <header class="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <img src="./images/logo.jpg" alt="胖肉多的種植雜記 Logo" onerror="this.style.display='none'">
+                <span>胖肉多的種植雜記</span>
+            </div>
+
+            <nav class="nav-menu" id="navMenu">
+                <a href="./index.html">首頁</a>
+                <a href="./Journal.html">種植雜記</a>
+                <a href="./Knowledge.html">植栽知識庫</a>
+                <a href="./Shop.html">資材選物店</a>
+                <a href="./BrandStory.html">品牌故事</a>
+                <a href="./ContactUs.html" class="active">聯絡我們</a>
+            </nav>
+
+            <div class="nav-controls">
+                <button type="button" class="auth-btn trigger-auth-btn">登入/註冊</button>
+                <a href="./cart.html" class="cart-btn" id="navCartCount">🛒 (0)</a>
+                
+                <button type="button" class="menu-toggle" id="menuToggle" aria-label="切換選單">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- 聯絡我們主要內容區 -->
+    <!--【說明】main 裡是本頁的主要內容；動態內容容器通常由 JS 依 id 尋找並填入資料。 -->
+    <main class="contact-wrapper">
+        <section class="contact-container">
+            <div class="contact-header">
+                <img src="images/logo.jpg" alt="胖肉多的種植雜記 Logo 大圖" class="contact-logo-large">
+                <h1 class="contact-title">聯絡胖肉多</h1>
+                <p class="contact-subtitle">不論是種植上的疑難雜症，或是資材選購諮詢，都歡迎與我們聯繫！</p>
+            </div>
+
+            <div class="contact-grid">
+                <div class="contact-info-card">
+                    <h2>聯絡資訊</h2>
+                    <ul class="info-list">
+                        <li><strong>站長姓名：</strong> 胖肉多</li>
+                        <li><strong>電子郵件：</strong> <a href="mailto:abcdefg@gmail.com">abcdefg@gmail.com</a></li>
+                        <li><strong>連絡電話：</strong> (77)77777777</li>
+                        <li><strong>連絡地址：</strong> 福氣市幸福區幸運路168號</li>
+                        <li><strong>服務時間：</strong> 週一至週五 09:00 - 18:00</li>
+                    </ul>
+                </div>
+
+                <div class="contact-form-card">
+                    <h2>線上留言</h2>
+                    <form id="contactForm" action="https://formspree.io/f/cipher513.02@gmail.com" method="POST" class="contact-form">
+                        <div class="form-group">
+                            <label for="name">您的姓名 <span>*</span></label>
+                            <input type="text" id="name" name="name" placeholder="請輸入您的姓名" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="email">電子郵件 <span>*</span></label>
+                            <input type="email" id="email" name="email" placeholder="example@email.com" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="phone">聯絡電話</label>
+                            <input type="tel" id="phone" name="phone" placeholder="09xx-xxx-xxx">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="subject">諮詢主題</label>
+                            <select id="subject" name="subject">
+                                <option value="種植問題諮詢">種植問題諮詢</option>
+                                <option value="園藝資材詢問">園藝資材詢問</option>
+                                <option value="商業合作提案">商業合作提案</option>
+                                <option value="其他事項">其他事項</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="message">留言內容 <span>*</span></label>
+                            <textarea id="message" name="message" rows="5" placeholder="請詳細說明您的問題或需求..." required></textarea>
+                        </div>
+
+                        <button type="submit" class="btn-submit">傳送訊息 ➔</button>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- 會員登入浮動視窗 (Modal) -->
+    <!--【說明】登入展示視窗：送出表單只顯示提示，沒有實際帳號驗證或伺服器登入。 -->
+    <div class="modal-overlay" id="loginModal">
+        <div class="login-modal">
+            <button type="button" class="close-btn" id="closeModalBtn">&times;</button>
+            <h2>會員登入</h2>
+            <form class="login-form" id="loginForm">
+                <div class="form-group">
+                    <label for="username">會員帳號</label>
+                    <input type="text" id="username" placeholder="限使用英文、數字，至少6個字元" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">密碼</label>
+                    <input type="password" id="password" placeholder="限使用英文、數字，至少6個字元" required>
+                </div>
+                <button type="submit" class="submit-btn">登入</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- 頁尾 Footer -->
+    <!--【說明】全站頁尾：以下三個尚未完成的說明頁，統一前往 maintenance.html。 -->
+    <footer class="site-footer">
+        <div class="footer-container">
+            <div class="footer-col footer-left">
+                <p>版權宣告：© 2026 胖肉多的種植雜記 All Rights Reserved.</p>
+            </div>
+            <div class="footer-col footer-center">
+                <p>站長：胖肉多</p>
+                <p>連絡電話：(77)77777777</p>
+                <p>連絡地址：福氣市幸福區幸運路168號</p>
+            </div>
+            <div class="footer-col footer-right">
+                <a href="./maintenance.html">隱私權政策</a> / 
+                <a href="./maintenance.html">購物與退換貨須知</a> / 
+                <a href="./maintenance.html">常見問題 FAQ</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JS 邏輯 -->
+    <script>
+        //【說明】此段是頁面專用 JavaScript。DOMContentLoaded 可確保 HTML 元素已建立，再開始綁定事件。
+        //【說明】如需調整外觀由 CSS 進行更改；如需調整按鈕行為才改事件處理函式。
+        document.addEventListener("DOMContentLoaded", function() {
+            updateCartCount();
+            initNavAndModal();
+            initContactForm();
+        });
+
+        //【說明】讀取 shoppingCart，計算導覽列顯示的購物車商品總數。
+
+        function updateCartCount() {
+            try {
+                let cart = JSON.parse(localStorage.getItem('shoppingCart')) || [];
+                let totalCount = cart.reduce((sum, item) => sum + (Number(item.quantity) || 0), 0);
+                const cartNavBtn = document.getElementById('navCartCount');
+                if (cartNavBtn) {
+                    cartNavBtn.innerText = `🛒 (${totalCount})`;
+                }
+            } catch (e) {
+                console.error("購物車數量解析失敗:", e);
+            }
+        }
+
+        //【說明】註冊漢堡選單及展示型登入視窗的點擊、關閉與送出事件。
+
+        function initNavAndModal() {
+            const menuToggle = document.getElementById("menuToggle");
+            const navMenu = document.getElementById("navMenu");
+
+            if (menuToggle && navMenu) {
+                menuToggle.addEventListener("click", function (e) {
+                    e.stopPropagation();
+                    navMenu.classList.toggle("active");
+                });
+
+                document.addEventListener("click", function (e) {
+                    if (!navMenu.contains(e.target) && !menuToggle.contains(e.target)) {
+                        navMenu.classList.remove("active");
+                    }
+                });
+            }
+
+            const triggerAuthBtns = document.querySelectorAll(".trigger-auth-btn");
+            const loginModal = document.getElementById("loginModal");
+            const closeModalBtn = document.getElementById("closeModalBtn");
+            const loginForm = document.getElementById("loginForm");
+
+            triggerAuthBtns.forEach(btn => {
+                btn.addEventListener("click", function (e) {
+                    e.preventDefault();
+                    if (navMenu) navMenu.classList.remove("active");
+                    loginModal.classList.add("active");
+                });
+            });
+
+            if (closeModalBtn) {
+                closeModalBtn.addEventListener("click", function () {
+                    loginModal.classList.remove("active");
+                });
+            }
+
+            if (loginModal) {
+                loginModal.addEventListener("click", function (e) {
+                    if (e.target === loginModal) {
+                        loginModal.classList.remove("active");
+                    }
+                });
+            }
+
+            if (loginForm) {
+                loginForm.addEventListener("submit", function (e) {
+                    e.preventDefault();
+                    loginForm.reset();
+                    loginModal.classList.remove("active");
+                    showLoginNotice("此視窗僅供展示使用，\n尚未連接實際登入功能。");
+                });
+            }
+        }
+
+        /* ===== 聯絡表單「示範跳窗」控制機制 ===== */
+        //【說明】攔截示範留言表單送出，顯示提示並重設欄位；目前未實際寄信。
+        function initContactForm() {
+            const contactForm = document.getElementById("contactForm");
+            if (contactForm) {
+                contactForm.addEventListener("submit", function(e) {
+                    // 攔截預設提交行為，阻止頁面跳轉
+                    e.preventDefault();
+                    
+                    // 彈出提示視窗
+                    alert("此表單僅供展示使用，無實際寄信功能。");
+                    
+                    // 清空表單內容
+                    contactForm.reset();
+                });
+            }
+        }
+    </script>
+</body>
+</html>
